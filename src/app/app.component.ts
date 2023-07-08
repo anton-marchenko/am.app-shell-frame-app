@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app-shell-mock-app-1';
+
+  goToApp(alias: string) {
+    window.parent.postMessage({
+      type: 'goToApp',
+      alias
+    }, '*');
+  }
 }
