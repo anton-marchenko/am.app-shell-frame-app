@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app-shell-mock-app-1';
+  constructor(
+    private readonly router: Router
+  ){
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        window.parent.postMessage({
+          type: 'updatePath',
+          path: event.urlAfterRedirects
+        }, '*');
+      }
+    });
+  }
 
   goToApp(alias: string) {
     window.parent.postMessage({
