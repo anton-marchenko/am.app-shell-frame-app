@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      function onClick(alias) {
+        console.log("go to app", alias);
+        window.parent.postMessage(
+          {
+            type: "goToApp",
+            alias,
+          },
+          "*"
+        );
+      }
+    </script>
+  </head>
+  <body>
+    <div style="margin: 60px">
+      <h1>APP 2</h1>
+      <button onclick="onClick('app1')">to APP1</button>
+    </div>
+  </body>
+</html>
